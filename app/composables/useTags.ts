@@ -1,3 +1,5 @@
+import { isPrivateArticle } from '~/utils/content'
+
 interface TagItem {
   name: string
   count: number
@@ -12,7 +14,7 @@ export function useTags() {
       const articles = await queryCollection('content')
         .select('tags', 'private')
         .all()
-        .then(results => results.filter(r => isUnlocked.value || !(r as any).private))
+        .then(results => results.filter(r => isUnlocked.value || !isPrivateArticle(r as any)))
 
       const countMap = new Map<string, number>()
 

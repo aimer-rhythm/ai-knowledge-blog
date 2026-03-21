@@ -1,4 +1,4 @@
-import { getContentDateValue } from '~/utils/content'
+import { getContentDateValue, isPrivateArticle } from '~/utils/content'
 
 interface CategoryItem {
   name: string
@@ -20,7 +20,7 @@ export function useCategories() {
       const articles = await queryCollection('content')
         .select('category', 'image', 'date', 'private')
         .all()
-        .then(results => results.filter(r => isUnlocked.value || !(r as any).private))
+        .then(results => results.filter(r => isUnlocked.value || !isPrivateArticle(r as any)))
 
       const categoryMap = new Map<string, CategoryItem & { latestDate: number }>()
 

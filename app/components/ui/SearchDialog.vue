@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { compareContentDatesDesc } from '~/utils/content'
+import { compareContentDatesDesc, isPrivateArticle } from '~/utils/content'
 
 const { t } = useI18n()
 
@@ -88,7 +88,7 @@ watch(searchQuery, (query) => {
         .where('title', 'LIKE', `%${query}%`)
         .all()
       searchResults.value = (results as unknown as (SearchResult & { private?: boolean })[])
-        .filter(r => isUnlocked.value || !r.private)
+        .filter(r => isUnlocked.value || !isPrivateArticle(r as any))
         .sort(compareContentDatesDesc)
         .slice(0, 10)
     } catch {

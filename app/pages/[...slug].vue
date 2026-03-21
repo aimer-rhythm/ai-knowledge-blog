@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { compareContentDatesDesc } from '~/utils/content'
+import { compareContentDatesDesc, isPrivateArticle } from '~/utils/content'
 
 const { t } = useI18n()
 const { isUnlocked } = usePrivateAuth()
@@ -26,7 +26,7 @@ const { data: article, status } = await useAsyncData(`article-${route.path}-${to
   const { password, ...safeResult } = result as any
 
   // Strip body for private articles when not authenticated
-  if (safeResult.private === true && !isUnlocked.value) {
+  if (isPrivateArticle(safeResult) && !isUnlocked.value) {
     const { body, ...withoutBody } = safeResult
     return withoutBody
   }
@@ -41,14 +41,14 @@ if (!article.value) {
   })
 }
 
-const isPrivate = computed(() => article.value?.private === true)
+const isPrivate = computed(() => isPrivateArticle(article.value as any))
 
 // Query previous and next articles by date (conditional filtering)
 const { data: prevNext } = await useAsyncData(`prev-next-${route.path}-${toValue(isUnlocked)}`, async () => {
   const articles = await queryCollection('content')
     .select('path', 'title', 'date', 'private')
     .all()
-    .then(results => results.filter(r => isUnlocked.value || !(r as any).private).sort(compareContentDatesDesc))
+    .then(results => results.filter(r => isUnlocked.value || !isPrivateArticle(r as any)).sort(compareContentDatesDesc))
     .catch(() => [])
 
   const currentIndex = articles.findIndex(item => item.path === decodedRoutePath.value)
@@ -70,7 +70,7 @@ const { data: relatedArticles } = await useAsyncData(`related-${route.path}-${to
     .all()
     .catch(() => [])
 
-  return results.filter(r => isUnlocked.value || !(r as any).private).sort(compareContentDatesDesc).slice(0, 3)
+  return results.filter(r => isUnlocked.value || !isPrivateArticle(r as any)).sort(compareContentDatesDesc).slice(0, 3)
 })
 
 const { data: readingNavArticles } = await useAsyncData(`reading-nav-${route.path}-${toValue(isUnlocked)}`, () =>

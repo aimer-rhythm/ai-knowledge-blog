@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { compareContentDatesDesc, parseContentDate } from '~/utils/content'
+import { compareContentDatesDesc, parseContentDate, isPrivateArticle } from '~/utils/content'
 
 const { t } = useI18n()
 const { isUnlocked } = usePrivateAuth()
@@ -8,7 +8,7 @@ const { data: allArticles, pending } = await useAsyncData(`archives-${toValue(is
   queryCollection('content')
     .select('title', 'path', 'date', 'description', 'category', 'private')
     .all()
-    .then(results => results.filter(r => isUnlocked.value || !(r as any).private).sort(compareContentDatesDesc)),
+    .then(results => results.filter(r => isUnlocked.value || !isPrivateArticle(r as any)).sort(compareContentDatesDesc)),
 )
 
 // Group articles by year and month

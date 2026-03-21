@@ -1,5 +1,5 @@
 import type { Ref } from 'vue'
-import { compareContentDatesDesc } from '~/utils/content'
+import { compareContentDatesDesc, isPrivateArticle } from '~/utils/content'
 
 interface ArticleResult {
   path: string
@@ -49,7 +49,7 @@ function getTagLikePattern(tag: string) {
       }
 
       return query.select('private').all()
-        .then(results => results.filter(r => isUnlocked.value || !(r as any).private).length)
+        .then(results => results.filter(r => isUnlocked.value || !isPrivateArticle(r as any)).length)
     },
     {
       watch: [categoryVal, tagVal, isUnlocked],
@@ -81,7 +81,7 @@ function getTagLikePattern(tag: string) {
       return query
         .select('path', 'title', 'description', 'image', 'date', 'category', 'tags', 'private')
         .all()
-        .then(results => results.filter(r => isUnlocked.value || !(r as any).private).sort(compareContentDatesDesc).slice(start, end)) as Promise<ArticleResult[]>
+        .then(results => results.filter(r => isUnlocked.value || !isPrivateArticle(r as any)).sort(compareContentDatesDesc).slice(start, end)) as Promise<ArticleResult[]>
     },
     {
       watch: [currentPage, categoryVal, tagVal, isUnlocked],

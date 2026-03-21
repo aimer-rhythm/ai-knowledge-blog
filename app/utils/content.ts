@@ -31,6 +31,10 @@ export function getContentDateValue(dateStr?: string | null): number {
   return parseContentDate(dateStr)?.getTime() ?? 0
 }
 
+export function isPrivateArticle(article: { path?: string; private?: boolean }): boolean {
+  return article.private === true || (article.path?.startsWith('/private/') ?? false)
+}
+
 export function compareContentDatesDesc<T extends { date?: string | null }>(a: T, b: T): number {
   return getContentDateValue(b.date) - getContentDateValue(a.date)
 }
