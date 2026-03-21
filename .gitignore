@@ -19,6 +19,9 @@ logs
 .idea
 .vscode
 
+# Private content (injected at deploy time, not tracked in repo)
+content/private/
+
 # Local env files
 .env
 .env.*

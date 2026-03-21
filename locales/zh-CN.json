@@ -1,0 +1,111 @@
+{
+  "nav": {
+    "home": "首页",
+    "categories": "分类",
+    "tags": "标签",
+    "archives": "归档",
+    "about": "关于",
+    "private": "私密"
+  },
+  "hero": {
+    "title": "AI 知识库",
+    "subtitle": "探索人工智能的学习笔记与技术分享",
+    "browse": "浏览分类",
+    "archives": "文章归档"
+  },
+  "blog": {
+    "exploreTopics": "探索主题",
+    "latest": "最新文章",
+    "empty": "暂无文章",
+    "count": "{n} 篇文章",
+    "categoryEmpty": "该分类下暂无文章",
+    "tagEmpty": "该标签下暂无文章",
+    "readingTime": "{n} 分钟",
+    "prev": "上一篇",
+    "next": "下一篇",
+    "related": "相关文章",
+    "quickSwitch": "快捷切换",
+    "toc": "目录",
+    "notFound": "文章未找到"
+  },
+  "adminGate": {
+    "title": "管理员验证",
+    "description": "请输入管理员密钥以访问私密内容",
+    "placeholder": "请输入管理员密钥",
+    "submit": "验证",
+    "verifying": "验证中...",
+    "error": "密钥错误，请重试",
+    "listTitle": "私密文章",
+    "listSubtitle": "以下为私密文章，仅管理员可见",
+    "empty": "暂无私密文章",
+    "logout": "退出管理"
+  },
+  "search": {
+    "placeholder": "搜索文章...",
+    "shortcut": "⌘K",
+    "start": "输入关键词开始搜索",
+    "searching": "搜索中...",
+    "noResults": "未找到 “{query}” 相关文章",
+    "navigate": "导航",
+    "open": "打开",
+    "close": "关闭"
+  },
+  "callout": {
+    "info": "信息",
+    "tip": "提示",
+    "warning": "警告",
+    "danger": "危险"
+  },
+  "categories": {
+    "title": "分类",
+    "subtitle": "按主题分类浏览所有文章",
+    "all": "所有分类",
+    "uncategorized": "未分类",
+    "description": "浏览「{name}」分类下的所有文章",
+    "empty": "暂无分类",
+    "descriptionMachineLearning": "经典机器学习算法、模型评估与特征工程",
+    "descriptionDeepLearning": "神经网络架构、训练技巧与前沿模型",
+    "descriptionNlp": "文本处理、语言模型与对话系统",
+    "descriptionCv": "图像识别、目标检测与生成模型",
+    "descriptionRl": "策略优化、环境建模与多智能体系统",
+    "descriptionDataScience": "数据分析、可视化与统计方法",
+    "descriptionAiEngineering": "模型部署、MLOps 与系统架构",
+    "descriptionMath": "线性代数、概率论与最优化理论"
+  },
+  "tags": {
+    "title": "标签",
+    "subtitle": "通过标签发现感兴趣的内容",
+    "all": "所有标签",
+    "description": "浏览「{name}」标签下的所有文章",
+    "empty": "暂无标签"
+  },
+  "archives": {
+    "count": "共 {n} 篇归档文章"
+  },
+  "about": {
+    "title": "关于",
+    "intro": "关于本站",
+    "introText1": "AI 知识库是一个专注于人工智能领域的学习笔记与技术分享平台。这里记录了我在探索 AI 过程中的学习心得、技术总结和实践经验。",
+    "introText2": "内容涵盖机器学习、深度学习、自然语言处理、计算机视觉等多个方向，旨在建立一个系统化的知识体系，帮助自己和他人更好地理解和应用人工智能技术。",
+    "introText3": "所有文章均以 Markdown 格式编写，支持数学公式渲染和代码高亮，力求内容准确、表述清晰。",
+    "techStack": "技术栈",
+    "contact": "联系方式",
+    "contactText": "如果你有任何问题、建议或想要交流，欢迎通过以下方式联系我。",
+    "license": "版权声明",
+    "licenseText": "本站所有原创内容均采用 {license} 许可协议。转载请注明出处。"
+  },
+  "footer": {
+    "description": "持续整理 AI 系统、模型与工具相关的学习笔记、实验记录与技术文章。",
+    "links": "站点导航",
+    "social": "社交链接",
+    "copyright": "© {year} AI 知识库"
+  },
+  "common": {
+    "backToHome": "返回首页",
+    "loading": "加载中...",
+    "error": "发生错误",
+    "more": "查看更多",
+    "toggleTheme": "切换主题",
+    "pagination": "分页导航"
+  }
+}

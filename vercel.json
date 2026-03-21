@@ -1,0 +1,6 @@
+{
+  "buildCommand": "bash scripts/fetch-private-content.sh && pnpm build",
+  "outputDirectory": ".output",
+  "installCommand": "pnpm install",
+  "framework": "nuxtjs"
+}

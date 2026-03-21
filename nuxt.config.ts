@@ -3,6 +3,10 @@ export default defineNuxtConfig({
   compatibilityDate: '2025-07-15',
   devtools: { enabled: true },
 
+  runtimeConfig: {
+    privateKey: '',
+  },
+
   future: {
     compatibilityVersion: 4,
   },
@@ -12,12 +16,24 @@ export default defineNuxtConfig({
     '@nuxtjs/tailwindcss',
     '@nuxtjs/color-mode',
     '@nuxt/image',
-    '@nuxt/fonts',
     '@nuxtjs/sitemap',
     '@nuxt/eslint',
+    '@nuxtjs/i18n',
   ],
 
+  i18n: {
+    locales: [
+      { code: 'en', name: 'English', file: 'en.json' },
+      { code: 'zh', name: '简体中文', file: 'zh-CN.json' },
+    ],
+    defaultLocale: 'zh',
+    langDir: '../locales/',
+    strategy: 'prefix_except_default',
+  },
+
   app: {
+    pageTransition: { name: 'page', mode: 'out-in' },
+    layoutTransition: { name: 'layout', mode: 'out-in' },
     head: {
       title: 'AI 知识库',
       meta: [
@@ -29,6 +45,12 @@ export default defineNuxtConfig({
         {
           rel: 'stylesheet',
           href: 'https://cdn.jsdelivr.net/npm/katex@0.16.21/dist/katex.min.css',
+        },
+        { rel: 'preconnect', href: 'https://fonts.googleapis.com' },
+        { rel: 'preconnect', href: 'https://fonts.gstatic.com', crossorigin: '' },
+        {
+          rel: 'stylesheet',
+          href: 'https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap',
         },
       ],
     },
@@ -80,17 +102,13 @@ export default defineNuxtConfig({
     url: 'https://ai-knowledge-blog.vercel.app',
   },
 
+  sitemap: {
+    exclude: ['/private/**'],
+  },
+
   image: {
     quality: 80,
     format: ['webp', 'avif'],
-  },
-
-  fonts: {
-    families: [
-      { name: 'Inter', provider: 'google' },
-      { name: 'Noto Sans SC', provider: 'google' },
-      { name: 'JetBrains Mono', provider: 'google' },
-    ],
   },
 
   tailwindcss: {
@@ -103,9 +121,4 @@ export default defineNuxtConfig({
     },
   },
 
-  nitro: {
-    prerender: {
-      routes: ['/sitemap.xml'],
-    },
-  },
 })

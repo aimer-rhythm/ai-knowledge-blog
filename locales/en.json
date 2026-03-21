@@ -1,0 +1,111 @@
+{
+  "nav": {
+    "home": "Home",
+    "categories": "Categories",
+    "tags": "Tags",
+    "archives": "Archives",
+    "about": "About",
+    "private": "Private"
+  },
+  "hero": {
+    "title": "AI Knowledge Base",
+    "subtitle": "Notes and sharing on Artificial Intelligence",
+    "browse": "Browse Categories",
+    "archives": "Article Archives"
+  },
+  "blog": {
+    "exploreTopics": "Explore Topics",
+    "latest": "Latest Articles",
+    "empty": "No articles found",
+    "count": "{n} articles",
+    "categoryEmpty": "No articles found in this category",
+    "tagEmpty": "No articles found for this tag",
+    "readingTime": "{n} min read",
+    "prev": "Previous",
+    "next": "Next",
+    "related": "Related Articles",
+    "quickSwitch": "Quick Switch",
+    "toc": "Table of Contents",
+    "notFound": "Article not found"
+  },
+  "adminGate": {
+    "title": "Admin Verification",
+    "description": "Enter the admin key to access private content",
+    "placeholder": "Enter admin key",
+    "submit": "Verify",
+    "verifying": "Verifying...",
+    "error": "Invalid key, please try again",
+    "listTitle": "Private Articles",
+    "listSubtitle": "These articles are only visible to administrators",
+    "empty": "No private articles",
+    "logout": "Logout"
+  },
+  "search": {
+    "placeholder": "Search articles...",
+    "shortcut": "⌘K",
+    "start": "Type to start searching",
+    "searching": "Searching...",
+    "noResults": "No results found for \"{query}\"",
+    "navigate": "Navigate",
+    "open": "Open",
+    "close": "Close"
+  },
+  "callout": {
+    "info": "Info",
+    "tip": "Tip",
+    "warning": "Warning",
+    "danger": "Danger"
+  },
+  "categories": {
+    "title": "Categories",
+    "subtitle": "Browse all articles by topic",
+    "all": "All Categories",
+    "uncategorized": "Uncategorized",
+    "description": "Browse all articles in the “{name}” category",
+    "empty": "No categories available",
+    "descriptionMachineLearning": "Classic machine learning algorithms, model evaluation, and feature engineering",
+    "descriptionDeepLearning": "Neural architectures, training techniques, and frontier models",
+    "descriptionNlp": "Text processing, language models, and conversational systems",
+    "descriptionCv": "Image recognition, detection, and generative models",
+    "descriptionRl": "Policy optimization, environment modeling, and multi-agent systems",
+    "descriptionDataScience": "Data analysis, visualization, and statistical methods",
+    "descriptionAiEngineering": "Model deployment, MLOps, and system architecture",
+    "descriptionMath": "Linear algebra, probability, and optimization theory"
+  },
+  "tags": {
+    "title": "Tags",
+    "subtitle": "Discover content through tags",
+    "all": "All Tags",
+    "description": "Browse all articles tagged with “{name}”",
+    "empty": "No tags available"
+  },
+  "archives": {
+    "count": "{n} archived articles"
+  },
+  "about": {
+    "title": "About",
+    "intro": "About This Site",
+    "introText1": "AI Knowledge Base is a platform focused on learning notes and technical sharing in the field of Artificial Intelligence. Here, I record my learning insights, technical summaries, and practical experiences.",
+    "introText2": "The content covers machine learning, deep learning, natural language processing, computer vision, etc., aiming to build a systematic knowledge system to help myself and others better understand AI.",
+    "introText3": "All articles are written in Markdown, supporting math formula rendering and code highlighting, striving for accuracy and clarity.",
+    "techStack": "Tech Stack",
+    "contact": "Contact",
+    "contactText": "If you have any questions, suggestions, or want to exchange ideas, feel free to contact me through the following ways.",
+    "license": "License",
+    "licenseText": "All original content on this site is licensed under {license}. Please credit the original source when reprinting."
+  },
+  "footer": {
+    "description": "A growing collection of notes, experiments, and technical writing about AI systems, models, and tools.",
+    "links": "Links",
+    "social": "Social",
+    "copyright": "© {year} AI Knowledge Base"
+  },
+  "common": {
+    "backToHome": "Back to Home",
+    "loading": "Loading...",
+    "error": "Error occurred",
+    "more": "More",
+    "toggleTheme": "Toggle theme",
+    "pagination": "Pagination"
+  }
+}
