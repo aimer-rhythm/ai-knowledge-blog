@@ -32,3 +32,4 @@ content/private/
 
 # Lock files debug
 pnpm-debug.log*
+.ace-tool/
