@@ -5,7 +5,7 @@
   <div class="min-h-screen flex flex-col relative selection:bg-primary-500/30">
     <!-- Global Background Pattern -->
     <div class="fixed inset-0 pointer-events-none z-[-1] bg-white dark:bg-zinc-950">
-      <div class="absolute inset-0 bg-[radial-gradient(#e5e7eb_1px,transparent_1px)] dark:bg-[radial-gradient(#27272a_1px,transparent_1px)] [background-size:24px_24px] opacity-40"></div>
+      <div class="absolute inset-0 bg-dot-pattern opacity-40"></div>
     </div>
     
     <LayoutAppHeader />

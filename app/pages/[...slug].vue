@@ -14,6 +14,7 @@ interface ReadingNavArticle {
 definePageMeta({
   layout: false,
   key: route => route.path,
+  pageTransition: false,
 })
 
 const route = useRoute()
@@ -159,7 +160,7 @@ useSeoMeta({
           </h1>
           <p
             v-if="article.description"
-            class="mt-5 text-lg sm:text-xl text-zinc-500 dark:text-zinc-400 leading-relaxed border-l-4 border-primary-500 pl-4 py-1 bg-zinc-50/50 dark:bg-zinc-900/50 rounded-r-lg"
+            class="mt-5 text-lg sm:text-xl text-zinc-500 dark:text-zinc-400 leading-relaxed border-l-2 border-primary-500 pl-4 py-1 bg-zinc-50/50 dark:bg-zinc-900/50 rounded-r-lg"
           >
             {{ article.description }}
           </p>
@@ -169,7 +170,7 @@ useSeoMeta({
           <ContentRenderer :key="article.path" :value="article" />
         </div>
 
-        <div v-if="article.tags?.length" class="mt-8 pt-6 border-t border-gray-200 dark:border-gray-800">
+        <div v-if="article.tags?.length" class="mt-8 pt-6 border-t border-zinc-200/50 dark:border-zinc-800/50">
           <BlogTagList :tags="article.tags" size="md" />
         </div>
 

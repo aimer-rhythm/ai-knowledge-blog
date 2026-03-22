@@ -123,7 +123,7 @@ const currentStyle = computed(() => styles[props.type]!)
       </span>
     </div>
 
-    <div class="text-sm text-gray-700 dark:text-gray-300 [&>p]:mb-0">
+    <div class="text-sm text-zinc-700 dark:text-zinc-300 [&>p]:mb-0">
       <slot />
     </div>
   </div>

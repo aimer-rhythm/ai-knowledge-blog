@@ -13,7 +13,7 @@ const links = computed(() => [
 
 <template>
   <footer class="relative mt-20 border-t border-zinc-200/50 dark:border-zinc-800/50 bg-white/30 dark:bg-zinc-950/30 backdrop-blur-2xl transition-colors duration-500 overflow-hidden">
-    <div class="absolute inset-0 bg-[radial-gradient(#e5e7eb_1px,transparent_1px)] dark:bg-[radial-gradient(#27272a_1px,transparent_1px)] [background-size:24px_24px] opacity-50"></div>
+    <div class="absolute inset-0 bg-dot-pattern opacity-50"></div>
     <div class="container-content relative py-12 md:py-16">
       <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-12">
         <!-- Brand -->

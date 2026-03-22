@@ -26,7 +26,8 @@
     "related": "相关文章",
     "quickSwitch": "快捷切换",
     "toc": "目录",
-    "notFound": "文章未找到"
+    "notFound": "文章未找到",
+    "emptyHint": "试试切换分类或标签筛选条件"
   },
   "adminGate": {
     "title": "管理员验证",
@@ -107,5 +108,10 @@
     "more": "查看更多",
     "toggleTheme": "切换主题",
     "pagination": "分页导航"
+  },
+  "code": {
+    "copy": "复制",
+    "copied": "已复制",
+    "expand": "放大"
   }
 }

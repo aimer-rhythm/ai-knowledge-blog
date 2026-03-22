@@ -31,7 +31,7 @@ function truncate(text: string | undefined, length: number): string {
     class="group block relative bg-white/60 dark:bg-zinc-900/50 backdrop-blur-md rounded-3xl p-4 border border-zinc-200/60 dark:border-zinc-800/60 shadow-sm hover:shadow-lg hover:-translate-y-1 transition-all duration-300 overflow-hidden"
   >
     <!-- Hover Glow -->
-    <div class="absolute -inset-px opacity-0 group-hover:opacity-100 transition-opacity duration-500 bg-gradient-to-br from-primary-500/5 to-purple-500/5 pointer-events-none" />
+    <div class="absolute -inset-px opacity-0 group-hover:opacity-100 transition-opacity duration-500 bg-gradient-to-br from-primary-500/5 to-purple-500/5 dark:from-primary-500/10 dark:to-purple-500/10 pointer-events-none" />
 
     <div class="relative flex flex-col gap-4 sm:gap-5 z-10">
       <!-- Image / Placeholder -->

@@ -16,21 +16,26 @@
 @layer components {
   /* Page Transitions */
   .page-enter-active,
-  .page-leave-active,
+  .page-leave-active {
+    transition: opacity 0.25s ease, transform 0.25s ease;
+  }
+
   .layout-enter-active,
   .layout-leave-active {
-    transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+    transition: opacity 0.3s ease;
   }
-  
-  .page-enter-from,
+
+  .page-enter-from {
+    opacity: 0;
+    transform: translateY(6px);
+  }
+
   .page-leave-to {
     opacity: 0;
-    transform: translateY(12px) scale(0.99);
   }
 
   .layout-enter-from,
   .layout-leave-to {
-    filter: blur(10px);
     opacity: 0;
   }
 
@@ -62,5 +67,35 @@
   /* KaTeX overrides for dark mode */
   .dark .katex {
     color: theme('colors.zinc.100');
+  }
+
+  /* Background dot pattern (extracted from layouts) */
+  .bg-dot-pattern {
+    @apply bg-[radial-gradient(#e5e7eb_1px,transparent_1px)] [background-size:24px_24px];
+  }
+
+  .dark .bg-dot-pattern {
+    @apply bg-[radial-gradient(#27272a_1px,transparent_1px)] [background-size:24px_24px];
+  }
+
+  /* Skeleton shimmer animation */
+  .skeleton-shimmer {
+    @apply relative overflow-hidden;
+  }
+
+  .skeleton-shimmer::after {
+    content: '';
+    @apply absolute inset-0;
+    background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.4), transparent);
+    animation: shimmer 1.5s infinite;
+  }
+
+  .dark .skeleton-shimmer::after {
+    background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.06), transparent);
+  }
+
+  @keyframes shimmer {
+    0% { transform: translateX(-100%); }
+    100% { transform: translateX(100%); }
   }
 }

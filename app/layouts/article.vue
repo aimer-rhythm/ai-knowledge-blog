@@ -6,13 +6,13 @@ const slots = useSlots()
   <div class="min-h-screen flex flex-col relative selection:bg-primary-500/30">
     <!-- Global Background Pattern -->
     <div class="fixed inset-0 pointer-events-none z-[-1] bg-white dark:bg-zinc-950">
-      <div class="absolute inset-0 bg-[radial-gradient(#e5e7eb_1px,transparent_1px)] dark:bg-[radial-gradient(#27272a_1px,transparent_1px)] [background-size:24px_24px] opacity-40"></div>
+      <div class="absolute inset-0 bg-dot-pattern opacity-40"></div>
     </div>
     
     <LayoutAppHeader />
     <main class="flex-1 relative z-0">
       <div class="max-w-[1600px] mx-auto px-4 sm:px-6 lg:px-8 py-8 lg:py-16">
-        <div class="grid grid-cols-1 lg:grid-cols-[minmax(0,1fr)_280px] xl:grid-cols-[240px_minmax(0,1fr)_280px] gap-6 lg:gap-8 xl:gap-12">
+        <div class="grid grid-cols-1 lg:grid-cols-[minmax(0,1fr)_240px] xl:grid-cols-[260px_minmax(0,1fr)_220px] gap-6 lg:gap-8 xl:gap-10">
           <aside class="hidden xl:block relative">
             <div class="sticky top-28">
               <LayoutAppSidebar v-if="slots.navigation">
@@ -27,7 +27,7 @@ const slots = useSlots()
                 <slot name="navigation" />
               </LayoutAppSidebar>
             </div>
-            <div class="max-w-5xl mx-auto">
+            <div class="max-w-4xl mx-auto">
               <slot />
             </div>
           </article>

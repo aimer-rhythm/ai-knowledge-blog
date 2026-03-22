@@ -65,7 +65,7 @@ useHead({
 
     <!-- Loading -->
     <div v-if="pending" class="space-y-12">
-      <div v-for="i in 3" :key="i" class="animate-pulse">
+      <div v-for="i in 3" :key="i" class="skeleton-shimmer rounded-2xl bg-white/40 dark:bg-zinc-900/40 p-4">
         <div class="h-10 bg-zinc-200/60 dark:bg-zinc-800/60 rounded-xl w-32 mb-8" />
         <div class="space-y-6 pl-8 border-l border-zinc-200/50 dark:border-zinc-800/50">
           <div v-for="j in 3" :key="j" class="h-8 bg-zinc-200/60 dark:bg-zinc-800/60 rounded-xl w-full max-w-2xl" />
@@ -78,8 +78,14 @@ useHead({
 
     <!-- Empty State -->
     <div v-else class="text-center py-20 bg-white/40 dark:bg-zinc-900/40 border border-dashed border-zinc-200 dark:border-zinc-800 rounded-3xl backdrop-blur-sm">
+      <svg class="mx-auto h-12 w-12 text-zinc-300 dark:text-zinc-600 mb-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+        <circle cx="12" cy="12" r="10" /><polyline points="12 6 12 12 16 14" />
+      </svg>
       <p class="text-zinc-500 dark:text-zinc-400 text-lg font-medium">
         {{ t('blog.empty') }}
+      </p>
+      <p class="mt-2 text-sm text-zinc-400 dark:text-zinc-600">
+        {{ t('blog.emptyHint') }}
       </p>
     </div>
   </div>

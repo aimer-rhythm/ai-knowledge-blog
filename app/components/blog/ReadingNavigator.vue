@@ -82,10 +82,10 @@ function getCategoryLabel(name?: string): string {
         </summary>
 
         <div class="mt-3 space-y-1 border-t border-zinc-200/70 pt-3 dark:border-zinc-800/70">
-          <a
+          <NuxtLink
             v-for="item in group.articles"
             :key="item.path"
-            :href="item.path"
+            :to="item.path"
             class="flex items-start justify-between gap-3 rounded-xl px-3 py-2.5 transition-all duration-200"
             :class="
               item.path === currentPath
@@ -102,7 +102,7 @@ function getCategoryLabel(name?: string): string {
             >
               {{ formatContentDate(item.date, localeCode, { month: 'numeric', day: 'numeric' }) }}
             </time>
-          </a>
+          </NuxtLink>
         </div>
       </details>
     </div>

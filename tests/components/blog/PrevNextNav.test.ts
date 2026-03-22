@@ -17,8 +17,19 @@ vi.mock('vue-i18n', () => ({
   }),
 }))
 
+const NuxtLinkStub = {
+  name: 'NuxtLink',
+  template: '<a :href="to"><slot /></a>',
+  props: ['to'],
+}
+
 function mountNav(props: { prev: { path: string; title: string } | null; next: { path: string; title: string } | null }) {
-  return mount(PrevNextNav, { props })
+  return mount(PrevNextNav, {
+    props,
+    global: {
+      stubs: { NuxtLink: NuxtLinkStub },
+    },
+  })
 }
 
 describe('PrevNextNav', () => {

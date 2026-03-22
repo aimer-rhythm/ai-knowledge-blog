@@ -54,11 +54,11 @@ onMounted(() => {
 </script>
 
 <template>
-  <div class="code-group my-4 overflow-hidden rounded-lg border border-gray-200 dark:border-gray-800">
+  <div class="code-group my-4 overflow-hidden rounded-lg border border-zinc-200 dark:border-zinc-800">
     <!-- Tab bar -->
     <div
       v-if="tabLabels.length > 1"
-      class="flex border-b border-gray-200 bg-gray-50 dark:border-gray-800 dark:bg-gray-900"
+      class="flex border-b border-zinc-200 bg-zinc-50 dark:border-zinc-800 dark:bg-zinc-900"
     >
       <button
         v-for="(label, index) in tabLabels"
@@ -67,7 +67,7 @@ onMounted(() => {
         :class="
           index === activeIndex
             ? 'text-primary-600 dark:text-primary-400'
-            : 'text-gray-500 hover:text-gray-700 dark:text-gray-400 dark:hover:text-gray-300'
+            : 'text-zinc-500 hover:text-zinc-700 dark:text-zinc-400 dark:hover:text-zinc-300'
         "
         @click="switchTab(index)"
       >

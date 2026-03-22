@@ -23,7 +23,7 @@ defineProps<{
 
 <template>
   <div
-    class="flex flex-wrap items-center gap-4 text-sm text-gray-600 dark:text-gray-400"
+    class="flex flex-wrap items-center gap-4 text-sm text-zinc-600 dark:text-zinc-400"
   >
     <!-- Date -->
     <time :datetime="article.date" class="flex items-center gap-1.5">
@@ -41,7 +41,7 @@ defineProps<{
     <!-- Divider -->
     <span
       v-if="article.category"
-      class="hidden h-4 w-px bg-gray-300 dark:bg-gray-700 sm:block"
+      class="hidden h-4 w-px bg-zinc-300 dark:bg-zinc-700 sm:block"
     />
 
     <!-- Category -->
@@ -64,7 +64,7 @@ defineProps<{
     <!-- Divider -->
     <span
       v-if="article.tags?.length"
-      class="hidden h-4 w-px bg-gray-300 dark:bg-gray-700 sm:block"
+      class="hidden h-4 w-px bg-zinc-300 dark:bg-zinc-700 sm:block"
     />
 
     <!-- Tags -->
@@ -81,7 +81,7 @@ defineProps<{
         v-for="tag in article.tags"
         :key="tag"
         :to="`/tags/${tag}`"
-        class="rounded-full bg-gray-100 px-2 py-0.5 text-xs transition-colors hover:bg-primary-100 hover:text-primary-700 dark:bg-gray-800 dark:hover:bg-primary-900/30 dark:hover:text-primary-300"
+        class="rounded-full bg-zinc-100 px-2 py-0.5 text-xs transition-colors hover:bg-primary-100 hover:text-primary-700 dark:bg-zinc-800 dark:hover:bg-primary-900/30 dark:hover:text-primary-300"
       >
         {{ tag }}
       </NuxtLink>
@@ -90,7 +90,7 @@ defineProps<{
     <!-- Divider -->
     <span
       v-if="article.readingTime"
-      class="hidden h-4 w-px bg-gray-300 dark:bg-gray-700 sm:block"
+      class="hidden h-4 w-px bg-zinc-300 dark:bg-zinc-700 sm:block"
     />
 
     <!-- Reading time -->

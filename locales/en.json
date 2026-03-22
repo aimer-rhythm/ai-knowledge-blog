@@ -26,7 +26,8 @@
     "related": "Related Articles",
     "quickSwitch": "Quick Switch",
     "toc": "Table of Contents",
-    "notFound": "Article not found"
+    "notFound": "Article not found",
+    "emptyHint": "Try switching categories or tag filters"
   },
   "adminGate": {
     "title": "Admin Verification",
@@ -107,5 +108,10 @@
     "more": "More",
     "toggleTheme": "Toggle theme",
     "pagination": "Pagination"
+  },
+  "code": {
+    "copy": "Copy",
+    "copied": "Copied",
+    "expand": "Expand"
   }
 }

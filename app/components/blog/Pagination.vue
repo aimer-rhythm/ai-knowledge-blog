@@ -62,11 +62,11 @@ function goToPage(page: number) {
     <!-- Previous -->
     <button
       :disabled="currentPage <= 1"
-      class="inline-flex h-9 items-center gap-1 rounded-lg px-3 text-sm font-medium transition-colors disabled:cursor-not-allowed disabled:opacity-40"
+      class="inline-flex h-9 items-center gap-1 rounded-xl px-3 text-sm font-medium transition-colors disabled:cursor-not-allowed disabled:opacity-40"
       :class="
         currentPage > 1
-          ? 'text-gray-700 hover:bg-gray-100 dark:text-gray-300 dark:hover:bg-gray-800'
-          : 'text-gray-400 dark:text-gray-600'
+          ? 'text-zinc-700 hover:bg-zinc-100 dark:text-zinc-300 dark:hover:bg-zinc-800'
+          : 'text-zinc-400 dark:text-zinc-600'
       "
       @click="goToPage(currentPage - 1)"
     >
@@ -81,7 +81,7 @@ function goToPage(page: number) {
       <!-- Ellipsis -->
       <span
         v-if="page < 0"
-        class="inline-flex h-9 w-9 items-center justify-center text-sm text-gray-400 dark:text-gray-600"
+        class="inline-flex h-9 w-9 items-center justify-center text-sm text-zinc-400 dark:text-zinc-600"
       >
         ...
       </span>
@@ -89,11 +89,11 @@ function goToPage(page: number) {
       <!-- Page button -->
       <button
         v-else
-        class="inline-flex h-9 w-9 items-center justify-center rounded-lg text-sm font-medium transition-colors"
+        class="inline-flex h-9 w-9 items-center justify-center rounded-xl text-sm font-medium transition-colors"
         :class="
           page === currentPage
             ? 'bg-primary-600 text-white shadow-sm dark:bg-primary-500'
-            : 'text-gray-700 hover:bg-gray-100 dark:text-gray-300 dark:hover:bg-gray-800'
+            : 'text-zinc-700 hover:bg-zinc-100 dark:text-zinc-300 dark:hover:bg-zinc-800'
         "
         :aria-current="page === currentPage ? 'page' : undefined"
         @click="goToPage(page)"
@@ -105,11 +105,11 @@ function goToPage(page: number) {
     <!-- Next -->
     <button
       :disabled="currentPage >= totalPages"
-      class="inline-flex h-9 items-center gap-1 rounded-lg px-3 text-sm font-medium transition-colors disabled:cursor-not-allowed disabled:opacity-40"
+      class="inline-flex h-9 items-center gap-1 rounded-xl px-3 text-sm font-medium transition-colors disabled:cursor-not-allowed disabled:opacity-40"
       :class="
         currentPage < totalPages
-          ? 'text-gray-700 hover:bg-gray-100 dark:text-gray-300 dark:hover:bg-gray-800'
-          : 'text-gray-400 dark:text-gray-600'
+          ? 'text-zinc-700 hover:bg-zinc-100 dark:text-zinc-300 dark:hover:bg-zinc-800'
+          : 'text-zinc-400 dark:text-zinc-600'
       "
       @click="goToPage(currentPage + 1)"
     >

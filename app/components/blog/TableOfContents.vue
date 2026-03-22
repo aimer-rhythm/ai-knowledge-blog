@@ -12,11 +12,18 @@ defineProps<{
 }>()
 
 const activeId = ref('')
+const isScrolling = ref(false)
 
 function scrollToHeading(id: string) {
   const el = document.getElementById(id)
   if (el) {
+    activeId.value = id
+    isScrolling.value = true
     el.scrollIntoView({ behavior: 'smooth', block: 'start' })
+    // Re-enable observer after scroll animation settles
+    setTimeout(() => {
+      isScrolling.value = false
+    }, 800)
   }
 }
 
@@ -26,6 +33,7 @@ onMounted(() => {
 
   const observer = new IntersectionObserver(
     (entries) => {
+      if (isScrolling.value) return
       for (const entry of entries) {
         if (entry.isIntersecting) {
           activeId.value = entry.target.id
@@ -56,8 +64,12 @@ onMounted(() => {
       {{ t('blog.toc') }}
     </h2>
 
-    <ul class="space-y-1.5 border-l-2 border-zinc-100 dark:border-zinc-800/80 ml-2 pl-3">
-      <li v-for="link in links" :key="link.id">
+    <ul class="space-y-1.5 border-l-2 border-zinc-100 dark:border-zinc-800/80 ml-2 pl-3 relative">
+      <li v-for="link in links" :key="link.id" class="relative">
+        <span
+          v-if="activeId === link.id"
+          class="absolute -left-[calc(0.75rem+2px)] top-1/2 -translate-y-1/2 w-0.5 h-4 bg-primary-500 rounded-full transition-all duration-200"
+        />
         <button
           class="w-full text-left text-[13px] font-medium transition-all duration-200 py-1"
           :class="
