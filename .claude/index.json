@@ -1,0 +1,207 @@
+{
+  "timestamp": "2026-03-22T11:21:48+08:00",
+  "projectName": "ai-knowledge-blog",
+  "description": "AI Knowledge Blog - Nuxt 3 + Vue 3 + TypeScript personal tech blog with @nuxt/content, i18n, dark mode, private articles, KaTeX, code highlighting",
+  "modules": [
+    {
+      "path": "app/",
+      "type": "nuxt-app",
+      "language": "vue/typescript",
+      "entry": "app/app.vue",
+      "interfaces": [
+        "app/pages/index.vue",
+        "app/pages/[...slug].vue",
+        "app/pages/categories/index.vue",
+        "app/pages/categories/[name].vue",
+        "app/pages/tags/index.vue",
+        "app/pages/tags/[name].vue",
+        "app/pages/archives.vue",
+        "app/pages/about.vue",
+        "app/pages/private.vue"
+      ],
+      "composables": [
+        "app/composables/useArticles.ts",
+        "app/composables/useCategories.ts",
+        "app/composables/useTags.ts",
+        "app/composables/usePrivateAuth.ts"
+      ],
+      "utils": [
+        "app/utils/content.ts"
+      ],
+      "components": {
+        "blog": [
+          "app/components/blog/ArticleCard.vue",
+          "app/components/blog/ArticleCover.vue",
+          "app/components/blog/ArticleMeta.vue",
+          "app/components/blog/AdminGate.vue",
+          "app/components/blog/CategoryCard.vue",
+          "app/components/blog/Pagination.vue",
+          "app/components/blog/PrevNextNav.vue",
+          "app/components/blog/ReadingNavigator.vue",
+          "app/components/blog/RelatedArticles.vue",
+          "app/components/blog/TableOfContents.vue",
+          "app/components/blog/TagList.vue",
+          "app/components/blog/Timeline.vue"
+        ],
+        "ui": [
+          "app/components/ui/ThemeToggle.vue",
+          "app/components/ui/LanguageSwitcher.vue",
+          "app/components/ui/SearchDialog.vue"
+        ],
+        "layout": [
+          "app/components/layout/AppHeader.vue",
+          "app/components/layout/AppFooter.vue",
+          "app/components/layout/AppSidebar.vue"
+        ],
+        "content": [
+          "app/components/content/CodeGroup.vue",
+          "app/components/content/Callout.vue"
+        ]
+      },
+      "layouts": [
+        "app/layouts/default.vue",
+        "app/layouts/article.vue"
+      ],
+      "assets": [
+        "app/assets/css/main.css"
+      ],
+      "tests": [
+        "tests/utils/content.test.ts",
+        "tests/components/blog/TagList.test.ts",
+        "tests/components/blog/PrevNextNav.test.ts",
+        "tests/components/blog/AdminGate.test.ts"
+      ],
+      "claudeMd": "app/CLAUDE.md"
+    },
+    {
+      "path": "server/",
+      "type": "nitro-server",
+      "language": "typescript",
+      "entry": "server/api/admin-login.post.ts",
+      "interfaces": [
+        "server/api/admin-login.post.ts",
+        "server/api/admin-logout.post.ts"
+      ],
+      "middleware": [
+        "server/middleware/admin-auth.ts"
+      ],
+      "utils": [
+        "server/utils/password-secret.ts"
+      ],
+      "tests": [],
+      "claudeMd": "server/CLAUDE.md"
+    },
+    {
+      "path": "content/",
+      "type": "content",
+      "language": "markdown",
+      "entry": null,
+      "articles": [
+        "content/llm/understanding-transformer.md",
+        "content/prompt/prompt-engineering-basics.md",
+        "content/tools/ai-tools-overview.md",
+        "content/tools/CCG v1.7.55.md",
+        "content/claude/Any牌路由器使用清障！.md",
+        "content/claude/《 Claude Code 终极版 FAQ 指南 》.md",
+        "content/codex/codex使用经验.md"
+      ],
+      "privateArticles": [
+        "content/private/"
+      ],
+      "tests": [],
+      "claudeMd": null
+    },
+    {
+      "path": "locales/",
+      "type": "i18n",
+      "language": "json",
+      "entry": null,
+      "files": [
+        "locales/zh-CN.json",
+        "locales/en.json"
+      ],
+      "tests": [],
+      "claudeMd": null
+    }
+  ],
+  "rootConfig": [
+    "nuxt.config.ts",
+    "content.config.ts",
+    "tailwind.config.ts",
+    "vitest.config.ts",
+    "eslint.config.mjs",
+    "tsconfig.json",
+    "package.json"
+  ],
+  "coverage": {
+    "totalSourceFiles": 42,
+    "scannedFiles": 42,
+    "coveragePercent": 100,
+    "breakdown": {
+      "pages": { "total": 9, "scanned": 9 },
+      "components": { "total": 20, "scanned": 20 },
+      "composables": { "total": 4, "scanned": 4 },
+      "utils": { "total": 1, "scanned": 1 },
+      "layouts": { "total": 2, "scanned": 2 },
+      "serverApi": { "total": 2, "scanned": 2 },
+      "serverMiddleware": { "total": 1, "scanned": 1 },
+      "serverUtils": { "total": 1, "scanned": 1 },
+      "config": { "total": 7, "scanned": 7 },
+      "locales": { "total": 2, "scanned": 2 },
+      "tests": { "total": 4, "scanned": 4 },
+      "css": { "total": 1, "scanned": 1 }
+    }
+  },
+  "gaps": [
+    {
+      "area": "tests/server",
+      "description": "No tests for server API endpoints or middleware",
+      "priority": "high",
+      "suggestedPaths": [
+        "tests/server/api/admin-login.test.ts",
+        "tests/server/api/admin-logout.test.ts",
+        "tests/server/middleware/admin-auth.test.ts"
+      ]
+    },
+    {
+      "area": "tests/composables",
+      "description": "No tests for composables (useArticles, useCategories, useTags)",
+      "priority": "medium",
+      "suggestedPaths": [
+        "tests/composables/useArticles.test.ts",
+        "tests/composables/useCategories.test.ts",
+        "tests/composables/useTags.test.ts"
+      ]
+    },
+    {
+      "area": "tests/components",
+      "description": "Most components untested: ArticleCard, SearchDialog, TableOfContents, Pagination, etc.",
+      "priority": "medium",
+      "suggestedPaths": [
+        "tests/components/blog/ArticleCard.test.ts",
+        "tests/components/blog/Pagination.test.ts",
+        "tests/components/ui/SearchDialog.test.ts",
+        "tests/components/blog/TableOfContents.test.ts"
+      ]
+    },
+    {
+      "area": "e2e",
+      "description": "No end-to-end tests",
+      "priority": "low"
+    }
+  ],
+  "ignored": {
+    "directories": [
+      "node_modules/",
+      ".output/",
+      ".nuxt/",
+      ".data/",
+      ".cache/",
+      "dist/",
+      ".vercel/",
+      "content/private/.git/"
+    ],
+    "reason": "Matched .gitignore rules or default ignore patterns"
+  },
+  "truncated": false
+}
