@@ -18,7 +18,7 @@ export function useCategories() {
     `all-categories-${toValue(isUnlocked)}`,
     async () => {
       const articles = await queryCollection('content')
-        .select('category', 'image', 'date', 'private')
+        .select('path', 'category', 'image', 'date', 'private')
         .all()
         .then(results => results.filter(r => isUnlocked.value || !isPrivateArticle(r as any)))
 

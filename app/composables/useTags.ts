@@ -12,7 +12,7 @@ export function useTags() {
     `all-tags-${toValue(isUnlocked)}`,
     async () => {
       const articles = await queryCollection('content')
-        .select('tags', 'private')
+        .select('path', 'tags', 'private')
         .all()
         .then(results => results.filter(r => isUnlocked.value || !isPrivateArticle(r as any)))
 

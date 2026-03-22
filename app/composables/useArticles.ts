@@ -48,7 +48,7 @@ function getTagLikePattern(tag: string) {
         query = query.where('tags', 'LIKE', getTagLikePattern(toValue(tagVal) as string))
       }
 
-      return query.select('private').all()
+      return query.select('path', 'private').all()
         .then(results => results.filter(r => isUnlocked.value || !isPrivateArticle(r as any)).length)
     },
     {

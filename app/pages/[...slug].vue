@@ -77,7 +77,7 @@ const { data: readingNavArticles } = await useAsyncData(`reading-nav-${route.pat
   queryCollection('content')
     .select('path', 'title', 'date', 'category', 'private')
     .all()
-    .then(results => results.filter(r => isUnlocked.value || !(r as any).private).sort(compareContentDatesDesc) as ReadingNavArticle[])
+    .then(results => results.filter(r => isUnlocked.value || !isPrivateArticle(r as any)).sort(compareContentDatesDesc) as ReadingNavArticle[])
     .catch(() => [] as ReadingNavArticle[]),
 )
 

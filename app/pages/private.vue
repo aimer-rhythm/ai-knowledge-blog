@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { compareContentDatesDesc } from '~/utils/content'
+import { compareContentDatesDesc, isPrivateArticle } from '~/utils/content'
 
 const { t } = useI18n()
 const { isUnlocked, logout } = usePrivateAuth()
@@ -16,10 +16,9 @@ interface PrivateArticle {
 
 const { data: privateArticles, pending } = await useAsyncData('private-articles', () =>
   queryCollection('content')
-    .where('private', '=', true)
-    .select('path', 'title', 'description', 'image', 'date', 'category', 'tags')
+    .select('path', 'title', 'description', 'image', 'date', 'category', 'tags', 'private')
     .all()
-    .then(results => results.sort(compareContentDatesDesc) as unknown as PrivateArticle[]),
+    .then(results => results.filter(r => isPrivateArticle(r as any)).sort(compareContentDatesDesc) as unknown as PrivateArticle[]),
 )
 
 const totalCount = computed(() => privateArticles.value?.length ?? 0)
