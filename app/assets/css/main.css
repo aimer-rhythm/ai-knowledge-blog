@@ -47,6 +47,11 @@
     @apply !bg-zinc-50/80 dark:!bg-zinc-900/80 backdrop-blur-md border border-zinc-200/50 dark:border-zinc-800/50 rounded-2xl p-5 shadow-sm;
   }
 
+  /* Fallback for plain-text code blocks without Shiki token colors. */
+  .prose pre > code {
+    @apply text-zinc-800 dark:text-zinc-200;
+  }
+
   .prose code::before,
   .prose code::after {
     content: none;
