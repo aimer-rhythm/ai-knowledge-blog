@@ -5,22 +5,59 @@ const router = useRouter()
 
 const currentPage = computed(() => Number(route.query.page) || 1)
 
-const { articles, totalPages, pending } = useArticles({
+const articlesData = useArticles({
   page: currentPage,
   perPage: 9,
 })
 
 const { isUnlocked } = usePrivateAuth()
-const { categories } = useCategories()
+const categoriesData = useCategories()
+
+// Defensive translation helper
+const safeT = (key: string, fallback: string) => {
+  if (typeof t !== 'function') return fallback
+  try {
+    const res = t(key)
+    return !res || res === key ? fallback : res
+  } catch {
+    return fallback
+  }
+}
+
+// Stats for knowledge card
+const stats = computed(() => {
+  const count = articlesData?.totalCount?.value || 0
+  const catCount = categoriesData?.categories?.value?.length || 0
+  const unlocked = isUnlocked?.value
+  
+  return [
+    { label: safeT('nav.archives', 'Archives'), value: count, unit: 'Posts' },
+    { label: safeT('categories.title', 'Categories'), value: catCount, unit: 'Topics' },
+    { label: 'Status', value: unlocked ? 'Admin' : 'Public', unit: 'Access' },
+  ]
+})
 
 // Current focus keywords - You can edit these anytime
-const focusKeywords = computed(() => [
+const focusKeywords = [
   'LLM Agents',
   'Prompt Engineering',
   'DeepSeek-V3',
   'Agentic Workflow',
   'RAG Optimization',
-])
+]
+
+const activeFocusIndex = ref(0)
+let focusInterval: ReturnType<typeof setInterval> | null = null
+
+onMounted(() => {
+  focusInterval = setInterval(() => {
+    activeFocusIndex.value = (activeFocusIndex.value + 1) % focusKeywords.length
+  }, 3000)
+})
+
+onUnmounted(() => {
+  if (focusInterval) clearInterval(focusInterval)
+})
 
 async function goToRandomArticle() {
   try {
@@ -45,9 +82,9 @@ function onPageChange(page: number) {
 }
 
 useHead({
-  title: `${t('hero.title')} - ${t('hero.subtitle')}`,
+  title: `${safeT('hero.title', 'AI KB')} - ${safeT('hero.subtitle', 'Blog')}`,
   meta: [
-    { name: 'description', content: t('footer.description') },
+    { name: 'description', content: safeT('footer.description', 'AI Knowledge Base') },
   ],
 })
 </script>
@@ -66,25 +103,40 @@ useHead({
       </div>
       
       <div class="container-content relative text-center">
-        <!-- Current Focus Status Pill -->
+        <!-- Cyber Focus Status Pill -->
         <div class="mb-8 flex justify-center">
-          <div class="inline-flex items-center gap-3 px-3 py-1.5 rounded-full bg-white/50 dark:bg-zinc-900/50 backdrop-blur-md border border-zinc-200/50 dark:border-zinc-800/50 shadow-sm group hover:border-primary-500/30 transition-colors">
-            <span class="relative flex h-2 w-2">
-              <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-primary-400 opacity-75"></span>
-              <span class="relative inline-flex rounded-full h-2 w-2 bg-primary-500"></span>
-            </span>
-            <span class="text-[10px] font-bold text-zinc-400 dark:text-zinc-500 uppercase tracking-[0.15em] border-r border-zinc-200 dark:border-zinc-800 pr-3 mr-1">
-              {{ t('hero.focus') }}
-            </span>
-            <div class="flex gap-2 overflow-hidden">
-              <span
-                v-for="(keyword, index) in focusKeywords"
-                :key="keyword"
-                class="text-[11px] font-semibold text-zinc-600 dark:text-zinc-400 group-hover:text-primary-600 dark:group-hover:text-primary-400 transition-colors"
-                :class="{ 'hidden sm:inline': index > 1 }"
-              >
-                #{{ keyword }}
+          <div class="group relative px-4 py-2 rounded-full bg-white/40 dark:bg-zinc-900/40 backdrop-blur-xl border border-zinc-200/50 dark:border-zinc-800/50 shadow-sm transition-all duration-500 hover:border-primary-500/30">
+            <!-- Animated Glowing Border -->
+            <div class="absolute -inset-px rounded-full bg-gradient-to-r from-primary-500/0 via-primary-500/20 to-primary-500/0 opacity-0 group-hover:opacity-100 blur-sm transition-opacity duration-700 animate-pulse" />
+            
+            <div class="relative flex items-center gap-3">
+              <span class="relative flex h-2 w-2">
+                <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-primary-400 opacity-75"></span>
+                <span class="relative inline-flex rounded-full h-2 w-2 bg-primary-500 shadow-[0_0_8px_rgba(99,102,241,0.8)]"></span>
               </span>
+              
+              <span class="text-[10px] font-bold text-zinc-400 dark:text-zinc-500 uppercase tracking-[0.2em] border-r border-zinc-200 dark:border-zinc-800 pr-3 mr-1">
+                {{ safeT('hero.focus', 'Focus') }}
+              </span>
+
+              <div class="h-5 flex items-center justify-center min-w-[100px] transition-all duration-500">
+                <Transition
+                  mode="out-in"
+                  enter-active-class="transition duration-300 ease-out"
+                  enter-from-class="opacity-0 translate-y-2"
+                  enter-to-class="opacity-100 translate-y-0"
+                  leave-active-class="transition duration-200 ease-in"
+                  leave-from-class="opacity-100 translate-y-0"
+                  leave-to-class="opacity-0 -translate-y-2"
+                >
+                  <span
+                    :key="activeFocusIndex"
+                    class="whitespace-nowrap text-[11px] font-mono font-bold text-zinc-600 dark:text-zinc-300 tracking-tight"
+                  >
+                    # {{ focusKeywords[activeFocusIndex] }}<span class="animate-pulse ml-0.5">_</span>
+                  </span>
+                </Transition>
+              </div>
             </div>
           </div>
         </div>
@@ -95,6 +147,26 @@ useHead({
         <p class="mt-6 text-lg sm:text-xl text-zinc-500 dark:text-zinc-400 max-w-2xl mx-auto leading-relaxed">
           {{ t('hero.subtitle') }}
         </p>
+
+        <!-- Dynamic Stats Grid -->
+        <div class="mt-8 flex justify-center gap-3 sm:gap-6">
+          <div
+            v-for="stat in stats"
+            :key="stat.label"
+            class="group p-3 sm:px-6 sm:py-3 rounded-2xl bg-white/40 dark:bg-zinc-900/40 backdrop-blur-xl border border-zinc-200/50 dark:border-zinc-800/50 transition-all hover:border-primary-500/20"
+          >
+            <div class="flex flex-col sm:flex-row items-center gap-1 sm:gap-3">
+              <span class="text-xl sm:text-2xl font-black text-zinc-900 dark:text-zinc-100 tabular-nums">
+                {{ stat.value }}
+              </span>
+              <div class="flex flex-col text-left">
+                <span class="text-[9px] font-bold text-zinc-400 dark:text-zinc-500 uppercase tracking-tighter">{{ stat.label }}</span>
+                <span class="text-[10px] font-semibold text-primary-500/80">{{ stat.unit }}</span>
+              </div>
+            </div>
+          </div>
+        </div>
+
         <div class="mt-10 flex flex-wrap justify-center gap-4">
           <NuxtLink
             to="/categories"
@@ -132,24 +204,6 @@ useHead({
             {{ t('hero.surprise') }}
           </button>
         </div>
-
-        <!-- Explore Topics -->
-        <div v-if="categories?.length" class="mt-16 flex flex-col items-center gap-5">
-          <p class="text-xs font-semibold text-zinc-400 dark:text-zinc-500 uppercase tracking-[0.2em]">
-            {{ t('blog.exploreTopics') }}
-          </p>
-          <div class="flex flex-wrap justify-center gap-2 max-w-2xl px-4">
-            <NuxtLink
-              v-for="category in categories.slice(0, 5)"
-              :key="category.name"
-              :to="`/categories/${category.name}`"
-              class="px-4 py-2 rounded-full bg-white/60 dark:bg-zinc-900/60 backdrop-blur-md border border-zinc-200/80 dark:border-zinc-800/80 text-sm font-medium text-zinc-600 dark:text-zinc-400 hover:border-primary-500/50 dark:hover:border-primary-500/50 hover:text-primary-600 dark:hover:text-primary-400 hover:bg-primary-50/50 dark:hover:bg-primary-900/20 transition-all duration-300 shadow-sm hover:shadow"
-            >
-              {{ category.name }}
-              <span class="ml-1.5 opacity-60 text-xs">{{ category.count }}</span>
-            </NuxtLink>
-          </div>
-        </div>
       </div>
     </section>
 
@@ -163,7 +217,7 @@ useHead({
       </div>
 
       <!-- Loading State -->
-      <div v-if="pending" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+      <div v-if="articlesData.pending.value" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
         <div
           v-for="i in 6"
           :key="i"
@@ -180,9 +234,9 @@ useHead({
       </div>
 
       <!-- Articles Grid -->
-      <div v-else-if="articles?.length" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-x-8 gap-y-12">
+      <div v-else-if="articlesData.articles.value?.length" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-x-8 gap-y-12">
         <BlogArticleCard
-          v-for="article in articles"
+          v-for="article in articlesData.articles.value"
           :key="article.path"
           :article="article"
         />
@@ -206,10 +260,10 @@ useHead({
       </div>
 
       <!-- Pagination -->
-      <div v-if="totalPages > 1" class="mt-16 flex justify-center">
+      <div v-if="articlesData.totalPages.value > 1" class="mt-16 flex justify-center">
         <BlogPagination
           :current-page="currentPage"
-          :total-pages="totalPages"
+          :total-pages="articlesData.totalPages.value"
           @update:current-page="onPageChange"
         />
       </div>
