@@ -10,7 +10,35 @@ const { articles, totalPages, pending } = useArticles({
   perPage: 9,
 })
 
+const { isUnlocked } = usePrivateAuth()
 const { categories } = useCategories()
+
+// Current focus keywords - You can edit these anytime
+const focusKeywords = computed(() => [
+  'LLM Agents',
+  'Prompt Engineering',
+  'DeepSeek-V3',
+  'Agentic Workflow',
+  'RAG Optimization',
+])
+
+async function goToRandomArticle() {
+  try {
+    const allPaths = await queryCollection('content')
+      .select('path', 'private')
+      .all()
+      .then(res => res.filter(r => isUnlocked.value || !isPrivateArticle(r as any)).map(r => r.path))
+    
+    if (allPaths.length > 0) {
+      const randomPath = allPaths[Math.floor(Math.random() * allPaths.length)]
+      if (randomPath) {
+        router.push(randomPath)
+      }
+    }
+  } catch (error) {
+    console.error('Failed to get random article:', error)
+  }
+}
 
 function onPageChange(page: number) {
   router.push({ query: { ...route.query, page: page > 1 ? page : undefined } })
@@ -57,23 +85,69 @@ useHead({
           >
             {{ t('hero.archives') }}
           </NuxtLink>
+          <button
+            type="button"
+            class="inline-flex items-center gap-2 px-6 py-3 rounded-xl bg-primary-50 dark:bg-primary-900/20 text-primary-600 dark:text-primary-400 text-sm font-semibold hover:bg-primary-100 dark:hover:bg-primary-900/30 transition-all duration-300 group"
+            @click="goToRandomArticle"
+          >
+            <svg
+              class="w-4 h-4 group-hover:rotate-[360deg] transition-transform duration-700"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="2.5"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+            >
+              <rect x="2" y="2" width="20" height="20" rx="4" ry="4" />
+              <circle cx="8.5" cy="8.5" r="1.5" />
+              <circle cx="15.5" cy="15.5" r="1.5" />
+              <circle cx="15.5" cy="8.5" r="1.5" />
+              <circle cx="8.5" cy="15.5" r="1.5" />
+              <circle cx="12" cy="12" r="1.5" />
+            </svg>
+            {{ t('hero.surprise') }}
+          </button>
         </div>
 
-        <!-- Explore Topics -->
-        <div v-if="categories?.length" class="mt-16 flex flex-col items-center gap-5">
-          <p class="text-xs font-semibold text-zinc-400 dark:text-zinc-500 uppercase tracking-[0.2em]">
-            {{ t('blog.exploreTopics') }}
-          </p>
-          <div class="flex flex-wrap justify-center gap-2 max-w-2xl">
-            <NuxtLink
-              v-for="category in categories.slice(0, 5)"
-              :key="category.name"
-              :to="`/categories/${category.name}`"
-              class="px-4 py-2 rounded-full bg-white/60 dark:bg-zinc-900/60 backdrop-blur-md border border-zinc-200/80 dark:border-zinc-800/80 text-sm font-medium text-zinc-600 dark:text-zinc-400 hover:border-primary-500/50 dark:hover:border-primary-500/50 hover:text-primary-600 dark:hover:text-primary-400 hover:bg-primary-50/50 dark:hover:bg-primary-900/20 transition-all duration-300 shadow-sm hover:shadow"
-            >
-              {{ category.name }}
-              <span class="ml-1.5 opacity-60 text-xs">{{ category.count }}</span>
-            </NuxtLink>
+        <!-- Explore Topics & Current Focus -->
+        <div class="mt-16 flex flex-col items-center gap-8">
+          <div v-if="categories?.length" class="flex flex-col items-center gap-4">
+            <p class="text-xs font-semibold text-zinc-400 dark:text-zinc-500 uppercase tracking-[0.2em]">
+              {{ t('blog.exploreTopics') }}
+            </p>
+            <div class="flex flex-wrap justify-center gap-2 max-w-2xl px-4">
+              <NuxtLink
+                v-for="category in categories.slice(0, 5)"
+                :key="category.name"
+                :to="`/categories/${category.name}`"
+                class="px-4 py-2 rounded-full bg-white/60 dark:bg-zinc-900/60 backdrop-blur-md border border-zinc-200/80 dark:border-zinc-800/80 text-sm font-medium text-zinc-600 dark:text-zinc-400 hover:border-primary-500/50 dark:hover:border-primary-500/50 hover:text-primary-600 dark:hover:text-primary-400 hover:bg-primary-50/50 dark:hover:bg-primary-900/20 transition-all duration-300 shadow-sm hover:shadow"
+              >
+                {{ category.name }}
+                <span class="ml-1.5 opacity-60 text-xs">{{ category.count }}</span>
+              </NuxtLink>
+            </div>
+          </div>
+
+          <!-- Current Focus Radar -->
+          <div class="flex flex-col items-center gap-4">
+            <p class="text-xs font-semibold text-zinc-400 dark:text-zinc-500 uppercase tracking-[0.2em] flex items-center gap-2">
+              <span class="relative flex h-2 w-2">
+                <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-primary-400 opacity-75"></span>
+                <span class="relative inline-flex rounded-full h-2 w-2 bg-primary-500"></span>
+              </span>
+              {{ t('hero.focus') }}
+            </p>
+            <div class="flex flex-wrap justify-center gap-3 max-w-3xl px-4">
+              <div
+                v-for="keyword in focusKeywords"
+                :key="keyword"
+                class="relative px-3 py-1.5 rounded-lg border border-zinc-200/40 dark:border-zinc-800/40 bg-white/30 dark:bg-zinc-900/30 text-xs font-medium text-zinc-500 dark:text-zinc-400 group overflow-hidden"
+              >
+                <div class="absolute inset-0 bg-gradient-to-r from-primary-500/5 to-blue-500/5 opacity-0 group-hover:opacity-100 transition-opacity" />
+                <span class="relative"># {{ keyword }}</span>
+              </div>
+            </div>
           </div>
         </div>
       </div>
