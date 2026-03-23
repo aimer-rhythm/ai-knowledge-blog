@@ -10,7 +10,9 @@
     "title": "AI 知识库",
     "subtitle": "探索人工智能的学习笔记与技术分享",
     "browse": "浏览分类",
-    "archives": "文章归档"
+    "archives": "文章归档",
+    "surprise": "随机发现",
+    "focus": "当前聚焦"
   },
   "blog": {
     "exploreTopics": "探索主题",
@@ -38,7 +40,8 @@
     "listTitle": "私密文章",
     "listSubtitle": "以下为私密文章，仅管理员可见",
     "empty": "暂无私密文章",
-    "logout": "退出管理"
+    "logout": "退出管理",
+    "isLoggedIn": "您当前已以管理员身份登录"
   },
   "search": {
     "placeholder": "搜索文章...",

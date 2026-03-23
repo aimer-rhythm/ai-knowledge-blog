@@ -6,6 +6,20 @@ export function usePrivateAuth() {
     return false
   })
 
+  // On client, check status if not already unlocked
+  if (import.meta.client && !isUnlocked.value) {
+    onMounted(async () => {
+      try {
+        const data = await $fetch<{ isUnlocked: boolean }>('/api/admin-check')
+        if (data.isUnlocked) {
+          isUnlocked.value = true
+        }
+      } catch {
+        // Fail silent
+      }
+    })
+  }
+
   async function login(key: string): Promise<boolean> {
     try {
       await $fetch('/api/admin-login', {

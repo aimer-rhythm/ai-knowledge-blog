@@ -11,6 +11,7 @@ const navLinks = computed(() => [
   { label: t('nav.about'), to: '/about' },
 ])
 
+const { isUnlocked } = usePrivateAuth()
 const searchDialog = ref<{ open: () => void } | null>(null)
 const adminGateDialog = ref<{ open: () => void } | null>(null)
 
@@ -123,7 +124,13 @@ watch(() => route.fullPath, () => {
         <!-- Admin Entrance -->
         <button
           type="button"
-          class="flex items-center justify-center w-9 h-9 rounded-lg text-zinc-500 dark:text-zinc-400 hover:text-zinc-900 dark:hover:text-zinc-100 hover:bg-zinc-100/80 dark:hover:bg-zinc-800/80 transition-all duration-200"
+          class="relative flex items-center gap-1.5 px-2 py-1 rounded-lg transition-all duration-200"
+          :class="[
+            isUnlocked
+              ? 'text-primary-500 bg-primary-50/50 dark:bg-primary-900/20'
+              : 'text-zinc-500 dark:text-zinc-400 hover:text-zinc-900 dark:hover:text-zinc-100 hover:bg-zinc-100/80 dark:hover:bg-zinc-800/80'
+          ]"
+          :aria-label="t('adminGate.title')"
           @click="openAdminGate"
         >
           <svg
@@ -138,6 +145,11 @@ watch(() => route.fullPath, () => {
             <rect x="3" y="11" width="18" height="11" rx="2" ry="2" />
             <path d="M7 11V7a5 5 0 0 1 10 0v4" />
           </svg>
+          <span v-if="isUnlocked" class="hidden sm:inline text-[10px] font-bold tracking-tight uppercase">Admin</span>
+          <span
+            v-if="isUnlocked"
+            class="absolute -top-0.5 -right-0.5 w-2.5 h-2.5 bg-primary-500 border-2 border-white dark:border-zinc-950 rounded-full sm:hidden"
+          />
         </button>
 
         <UiThemeToggle />
@@ -209,7 +221,12 @@ watch(() => route.fullPath, () => {
               <UiLanguageSwitcher />
               <button
                 type="button"
-                class="flex items-center justify-center w-9 h-9 rounded-lg text-zinc-500 dark:text-zinc-400 hover:text-zinc-900 dark:hover:text-zinc-100 hover:bg-zinc-100 dark:hover:bg-zinc-800 transition-all duration-200"
+                class="relative flex items-center gap-1.5 px-2 py-1 rounded-lg transition-all duration-200"
+                :class="[
+                  isUnlocked
+                    ? 'text-primary-500 bg-primary-50/50 dark:bg-primary-900/20'
+                    : 'text-zinc-500 dark:text-zinc-400 hover:text-zinc-900 dark:hover:text-zinc-100 hover:bg-zinc-100 dark:hover:bg-zinc-800'
+                ]"
                 @click="openAdminGate"
               >
                 <svg
@@ -224,6 +241,7 @@ watch(() => route.fullPath, () => {
                   <rect x="3" y="11" width="18" height="11" rx="2" ry="2" />
                   <path d="M7 11V7a5 5 0 0 1 10 0v4" />
                 </svg>
+                <span v-if="isUnlocked" class="text-[10px] font-bold tracking-tight uppercase">Admin</span>
               </button>
             </div>
             <UiThemeToggle />

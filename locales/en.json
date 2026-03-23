@@ -10,7 +10,9 @@
     "title": "AI Knowledge Base",
     "subtitle": "Notes and sharing on Artificial Intelligence",
     "browse": "Browse Categories",
-    "archives": "Article Archives"
+    "archives": "Article Archives",
+    "surprise": "Surprise Me",
+    "focus": "Current Focus"
   },
   "blog": {
     "exploreTopics": "Explore Topics",
@@ -38,7 +40,8 @@
     "listTitle": "Private Articles",
     "listSubtitle": "These articles are only visible to administrators",
     "empty": "No private articles",
-    "logout": "Logout"
+    "logout": "Logout",
+    "isLoggedIn": "You are logged in as administrator"
   },
   "search": {
     "placeholder": "Search articles...",

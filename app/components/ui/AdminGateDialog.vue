@@ -147,7 +147,7 @@ watch(isOpen, (val) => {
                 {{ t('adminGate.logout') }}
               </h2>
               <p class="text-sm text-zinc-500 dark:text-zinc-400 mb-6">
-                You are currently logged in as administrator.
+                {{ t('adminGate.isLoggedIn') }}
               </p>
               <button
                 :disabled="isLoading"
