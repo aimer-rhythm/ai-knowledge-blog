@@ -11,6 +11,30 @@ export default defineNuxtConfig({
     compatibilityVersion: 4,
   },
 
+  routeRules: {
+    '/': { prerender: true },
+    '/en': { prerender: true },
+    '/about': { prerender: true },
+    '/en/about': { prerender: true },
+    '/archives': { prerender: true },
+    '/en/archives': { prerender: true },
+    '/categories': { prerender: true },
+    '/en/categories': { prerender: true },
+    '/tags': { prerender: true },
+    '/en/tags': { prerender: true },
+    '/private': { prerender: false },
+    '/en/private': { prerender: false },
+    '/api/**': { prerender: false },
+  },
+
+  nitro: {
+    prerender: {
+      crawlLinks: true,
+      routes: ['/', '/en'],
+      ignore: ['/private', '/en/private'],
+    },
+  },
+
   modules: [
     '@nuxt/content',
     '@nuxtjs/tailwindcss',
