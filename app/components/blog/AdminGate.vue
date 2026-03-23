@@ -18,12 +18,14 @@ async function verify() {
   hasError.value = false
 
   const success = await login(inputKey.value)
-  if (!success) {
-    hasError.value = true
-    inputKey.value = ''
-    isLoading.value = false
-    nextTick(() => inputRef.value?.focus())
+  if (success) {
+    window.location.reload()
+    return
   }
+  hasError.value = true
+  inputKey.value = ''
+  isLoading.value = false
+  nextTick(() => inputRef.value?.focus())
 }
 </script>
 

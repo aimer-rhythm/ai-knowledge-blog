@@ -12,9 +12,6 @@ export function usePrivateAuth() {
         method: 'POST',
         body: { key },
       })
-      if (import.meta.client) {
-        window.location.reload()
-      }
       return true
     } catch {
       return false
@@ -23,9 +20,6 @@ export function usePrivateAuth() {
 
   async function logout(): Promise<void> {
     await $fetch('/api/admin-logout', { method: 'POST' })
-    if (import.meta.client) {
-      window.location.reload()
-    }
   }
 
   return { isUnlocked, login, logout }

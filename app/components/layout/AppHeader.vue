@@ -8,14 +8,18 @@ const navLinks = computed(() => [
   { label: t('nav.categories'), to: '/categories' },
   { label: t('nav.tags'), to: '/tags' },
   { label: t('nav.archives'), to: '/archives' },
-  { label: t('nav.private'), to: '/private' },
   { label: t('nav.about'), to: '/about' },
 ])
 
 const searchDialog = ref<{ open: () => void } | null>(null)
+const adminGateDialog = ref<{ open: () => void } | null>(null)
 
 function openSearch() {
   searchDialog.value?.open()
+}
+
+function openAdminGate() {
+  adminGateDialog.value?.open()
 }
 
 function handleScroll() {
@@ -116,6 +120,26 @@ watch(() => route.fullPath, () => {
 
         <UiLanguageSwitcher class="hidden sm:flex" />
 
+        <!-- Admin Entrance -->
+        <button
+          type="button"
+          class="flex items-center justify-center w-9 h-9 rounded-lg text-zinc-500 dark:text-zinc-400 hover:text-zinc-900 dark:hover:text-zinc-100 hover:bg-zinc-100/80 dark:hover:bg-zinc-800/80 transition-all duration-200"
+          @click="openAdminGate"
+        >
+          <svg
+            class="w-5 h-5"
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="2"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+          >
+            <rect x="3" y="11" width="18" height="11" rx="2" ry="2" />
+            <path d="M7 11V7a5 5 0 0 1 10 0v4" />
+          </svg>
+        </button>
+
         <UiThemeToggle />
 
         <!-- Mobile Menu Button -->
@@ -181,8 +205,28 @@ watch(() => route.fullPath, () => {
             </NuxtLink>
           </div>
           <div class="pt-4 border-t border-zinc-100 dark:border-zinc-800 flex items-center justify-between px-4">
-            <span class="text-sm text-zinc-500">{{ t('nav.about') }}</span>
-            <UiLanguageSwitcher />
+            <div class="flex items-center gap-2">
+              <UiLanguageSwitcher />
+              <button
+                type="button"
+                class="flex items-center justify-center w-9 h-9 rounded-lg text-zinc-500 dark:text-zinc-400 hover:text-zinc-900 dark:hover:text-zinc-100 hover:bg-zinc-100 dark:hover:bg-zinc-800 transition-all duration-200"
+                @click="openAdminGate"
+              >
+                <svg
+                  class="w-5 h-5"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  stroke-width="2"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                >
+                  <rect x="3" y="11" width="18" height="11" rx="2" ry="2" />
+                  <path d="M7 11V7a5 5 0 0 1 10 0v4" />
+                </svg>
+              </button>
+            </div>
+            <UiThemeToggle />
           </div>
         </div>
       </div>
@@ -190,6 +234,9 @@ watch(() => route.fullPath, () => {
 
     <!-- Search Dialog -->
     <UiSearchDialog ref="searchDialog" />
+
+    <!-- Admin Gate Dialog -->
+    <UiAdminGateDialog ref="adminGateDialog" />
   </header>
 
   <!-- Spacer for fixed header -->

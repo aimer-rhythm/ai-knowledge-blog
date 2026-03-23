@@ -22,8 +22,6 @@ export default defineNuxtConfig({
     '/en/categories': { prerender: true },
     '/tags': { prerender: true },
     '/en/tags': { prerender: true },
-    '/private': { prerender: false },
-    '/en/private': { prerender: false },
     '/api/**': { prerender: false },
   },
 
@@ -31,7 +29,6 @@ export default defineNuxtConfig({
     prerender: {
       crawlLinks: true,
       routes: ['/', '/en'],
-      ignore: ['/private', '/en/private'],
     },
   },
 
