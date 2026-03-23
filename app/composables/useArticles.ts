@@ -32,12 +32,14 @@ export function useArticles(options: UseArticlesOptions = {}) {
   const tagVal = isRef(tag) ? tag : ref(tag)
   const { isUnlocked } = usePrivateAuth()
 
-function getTagLikePattern(tag: string) {
-  return `%"${tag.replaceAll('"', '\\"')}"%`
-}
+  function getTagLikePattern(tag: string) {
+    return `%"${tag.replaceAll('"', '\\"')}"%`
+  }
 
-  const { data: countData, status: countStatus } = useAsyncData(
-    `articles-count-${toValue(categoryVal)}-${toValue(tagVal)}-${toValue(isUnlocked)}`,
+  const asyncKey = computed(() => `articles-${toValue(categoryVal)}-${toValue(tagVal)}-${toValue(isUnlocked)}`)
+
+  const { data: allArticles, status } = useAsyncData(
+    asyncKey,
     () => {
       let query = queryCollection('content')
 
@@ -47,51 +49,34 @@ function getTagLikePattern(tag: string) {
       if (toValue(tagVal)) {
         query = query.where('tags', 'LIKE', getTagLikePattern(toValue(tagVal) as string))
       }
-
-      return query.select('path', 'private').all()
-        .then(results => results.filter(r => isUnlocked.value || !isPrivateArticle(r as any)).length)
-    },
-    {
-      watch: [categoryVal, tagVal, isUnlocked],
-    }
-  )
-
-  const totalPages = computed(() => {
-    const count = countData.value ?? 0
-    return Math.max(1, Math.ceil(count / perPage))
-  })
-  const totalCount = computed(() => countData.value ?? 0)
-
-  const { data: articles, status } = useAsyncData(
-    `articles-${toValue(categoryVal)}-${toValue(tagVal)}-${toValue(currentPage)}-${toValue(isUnlocked)}`,
-    () => {
-      let query = queryCollection('content')
-
-      if (toValue(categoryVal)) {
-        query = query.where('category', '=', toValue(categoryVal) as string)
-      }
-      if (toValue(tagVal)) {
-        query = query.where('tags', 'LIKE', getTagLikePattern(toValue(tagVal) as string))
-      }
-
-      const pageNumber = Math.max(1, toValue(currentPage))
-      const start = (pageNumber - 1) * perPage
-      const end = start + perPage
 
       return query
         .select('path', 'title', 'description', 'image', 'date', 'category', 'tags', 'private')
         .all()
-        .then(results => results.filter(r => isUnlocked.value || !isPrivateArticle(r as any)).sort(compareContentDatesDesc).slice(start, end)) as Promise<ArticleResult[]>
+        .then(results => results.filter(r => isUnlocked.value || !isPrivateArticle(r as any)).sort(compareContentDatesDesc)) as Promise<ArticleResult[]>
     },
     {
-      watch: [currentPage, categoryVal, tagVal, isUnlocked],
+      watch: [categoryVal, tagVal, isUnlocked],
+      default: () => [],
     }
   )
 
-  const pending = computed(() => status.value === 'pending' || countStatus.value === 'pending')
+  const totalPages = computed(() => {
+    const count = allArticles.value.length
+    return Math.max(1, Math.ceil(count / perPage))
+  })
+  const totalCount = computed(() => allArticles.value.length)
+  const articles = computed(() => {
+    const pageNumber = Math.max(1, toValue(currentPage))
+    const start = (pageNumber - 1) * perPage
+    const end = start + perPage
+
+    return allArticles.value.slice(start, end)
+  })
+  const pending = computed(() => status.value === 'idle' || status.value === 'pending')
 
   return {
-    articles: articles as Ref<ArticleResult[] | null>,
+    articles: articles as Ref<ArticleResult[]>,
     totalCount,
     totalPages,
     pending,
