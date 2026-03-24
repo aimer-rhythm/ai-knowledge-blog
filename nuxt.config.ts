@@ -12,23 +12,23 @@ export default defineNuxtConfig({
   },
 
   routeRules: {
-    '/': { prerender: false },
-    '/en': { prerender: false },
+    '/': { prerender: true },
+    '/en': { prerender: true },
     '/about': { prerender: true },
     '/en/about': { prerender: true },
     '/archives': { prerender: true },
     '/en/archives': { prerender: true },
-    '/categories': { prerender: false },
-    '/en/categories': { prerender: false },
-    '/tags': { prerender: false },
-    '/en/tags': { prerender: false },
+    '/categories': { prerender: true },
+    '/en/categories': { prerender: true },
+    '/tags': { prerender: true },
+    '/en/tags': { prerender: true },
     '/api/**': { prerender: false },
   },
 
   nitro: {
     prerender: {
       crawlLinks: true,
-      routes: ['/'],
+      routes: ['/', '/en'],
     },
   },
 
